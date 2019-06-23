@@ -3,17 +3,33 @@
 */
 $spacer: 0.625rem;
 $spacer-1: $spacer;
-$spacer-2: $spacer*2;
-$spacer-3: $spacer*3;
-$spacer-4: $spacer*4;
-$spacer-6: $spacer*6;
+$spacer-2: $spacer * 2;
+$spacer-3: $spacer * 3;
+$spacer-4: $spacer * 4;
+$spacer-6: $spacer * 6;
 /*
 * COLORS
 */
 $black: #252525;
-$white: #FBFBFB;
-$green: #00BB00;
+$white: #fbfbfb;
+$green: #00bb00;
 $shadow-black: 0px 0px 28px -6px $black;
+/*
+* MIXINS
+*/
+@mixin pretty-scrollbar() {
+  &::-webkit-scrollbar-track {
+    background-color: $black;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $green;
+  }
+}
 
 #app {
   max-width: 75rem;
@@ -26,7 +42,6 @@ $shadow-black: 0px 0px 28px -6px $black;
     color: darkgoldenrod;
   }
 }
-
 
 .app-display {
   display: flex;
@@ -53,6 +68,7 @@ $shadow-black: 0px 0px 28px -6px $black;
     background-color: $black;
     color: green;
     border-radius: 40px 0 0 40px;
+    @include pretty-scrollbar();
 
     &.focused {
       transform: translateX(40px);
@@ -66,6 +82,55 @@ $shadow-black: 0px 0px 28px -6px $black;
 
     &.focused {
       transform: translateX(-40px);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    p > a {
+      text-decoration: underline;
+      color: dodgerblue;
+    }
+    code {
+      padding: $spacer-1;
+      background-color: lightcyan;
+      display: inline-block;
+    }
+
+    blockquote {
+      border-left: 5px solid darken(lightgray, 20%);
+      border-radius: 5px;
+      background-color: lightgray;
+      padding: 0.25rem $spacer-1;
+    }
+
+    table {
+      border-collapse: collapse;
+      th,
+      td {
+        padding: 0.25rem;
+        border: 1px solid $black;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .app-display {
+    flex-direction: column;
+    #editor,
+    #preview {
+      border-radius: 0;
+      margin-bottom: $spacer-2;
+      flex: 1;
+      min-height: 40vh;
+      padding: $spacer-2;
+      transform: translateX(0);
+      &.focused {
+        transform: translateX(0);
+        border-radius: 0;
+      }
     }
   }
 }
